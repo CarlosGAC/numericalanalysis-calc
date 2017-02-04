@@ -11,19 +11,19 @@
   .introWrapper {
     text-align: center;
     height: 900px;
-    width: 1500px;
+    width: 750px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     .calc-wrapper {
-      margin-top: 5em;
-      height: 700px;
-      background-color: $primaryColor;
+      margin-top: 2.5em;
+      height: 600px;
+      background-color: white;
       width: 100%;
       .calc-display {
         width: 100%;
-        height: 200px;
+        height: 100px;
         background-color: white;
         display: flex;
         .calc-leftside {
@@ -42,8 +42,8 @@
         .calc__operation {
           color: $blackText;
           border: none;
-          width: 30%;
-          height: 60%;
+          width: 100%;
+          height: 50%;
           margin:0;
           padding:0;
           font-size: $h2;
@@ -61,19 +61,19 @@
             top: 10px;
           }
           .calc__grad {
-            padding-right:2em;
+            padding-right:1em;
             color: $secondaryText;
           }
           .calc__rad {
-            padding-left: 2em;
+            padding-left: 1em;
             color: $secondaryText;
           }
         }
         .calc__numeric {
           color: $blackText;
           border: none;
-          width: 30%;
-          height: 100%;
+          width: 100%;
+          height: 50%;
           margin:0;
           padding:0;
           font-size: $h2;
@@ -88,7 +88,7 @@
       }
       .calc-buttons {
         width: 100%;
-        height: 100%;
+        height: 84%;
         display: flex;
 
         .calc-numericbuttonwrapper {
@@ -96,11 +96,12 @@
           height: 100%;
           display: flex;
           flex-wrap: wrap;
+          align-content: flex-start;
+          background-color: $accentColor;
           .calc__numbtn {
             color: $whiteBG;
-            padding-right: 20%;
-            height: 250px;
-            width: 250px;
+            height: 120px;
+            width: 120px;
             border: none;
             background-color: $accentColor;
             font-size: $h2;
@@ -110,6 +111,19 @@
         .calc-operationbuttonwrapper {
           width: 50%;
           height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: flex-start;
+          background-color: $primaryColor;
+          .calc__operbtn {
+            color: $whiteBG;
+            height: 120px;
+            width: 120px;
+            border: none;
+            background-color: $primaryColor;
+            font-size: $h2;
+            text-align: center;
+          }
         }
       }
     }
