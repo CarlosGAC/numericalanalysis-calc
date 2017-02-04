@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es"></html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Numerical Analysis Calculator</title>
+  <link rel="stylesheet" href="node_modules/animate.css/animate.min.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <section class="intro" id="intro">
+    <div class="m-center">
+      <div class="introWrapper">
+        <div class="intro-title">
+          <h1 class="intro__h1">Numerical Analysis Calculator</h1>
+        </div>
+        <div class="intro-info">
+          <h3 class="intro__h3">Author: Carlos Alberto Garcia de Alba Chavez M10 ISC</h3>
+        </div>
+        <div class="calc-wrapper">
+          <div class="calc-display">
+            <div class="calc-leftside">
+              <div class="calc__switch">
+                <h3 class="calc__grad">Grad</h3>
+                <input class="cbx hidden" type="checkbox" id="unchecked"/>
+                <label class="lbl" for="unchecked"></label>
+                <h3 class="calc__rad">Rad</h3>
+              </div>
+            </div>
+            <div class="calc-rightside">
+              <input class="calc__operation" type="text"/>
+              <input class="calc__numeric" type="text"/>
+            </div>
+          </div>
+          <div class="calc-buttons">
+            <div class="calc-numericbuttonwrapper">
+              <button class="calc__numbtn" type="button">1</button>
+              <button class="calc__numbtn" type="button">2</button>
+              <button class="calc__numbtn" type="button">3</button>
+              <button class="calc__numbtn" type="button">4</button>
+              <button class="calc__numbtn" type="button">5</button>
+              <button class="calc__numbtn" type="button">6</button>
+              <button class="calc__numbtn" type="button">7</button>
+              <button class="calc__numbtn" type="button">8</button>
+              <button class="calc__numbtn" type="button">9</button>
+              <button class="calc__numbtn" type="button">.</button>
+              <button class="calc__numbtn" type="button">0</button>
+              <button class="calc__numbtn" type="button">00</button>
+            </div>
+            <div class="calc-operationbuttonwrapper">
+              <button class="calc__operbtn" type="button">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>

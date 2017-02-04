@@ -1,0 +1,51 @@
+mixin menu(url, name)
+  li.nav__element #[a(href=`${url}`) #{name}]
+
+
+<!DOCTYPE html>
+html(lang="es")
+head
+  meta(charset="UTF-8")
+  title Numerical Analysis Calculator
+  each css in files.CSS
+    link(rel="stylesheet" href=`${css}`)
+
+body
+  //- Intro
+  section#intro.intro
+    div.m-center
+      div.introWrapper
+        div.intro-title
+          h1.intro__h1 Numerical Analysis Calculator
+        div.intro-info
+          h3.intro__h3 Author: Carlos Alberto Garcia de Alba Chavez M10 ISC
+        div.calc-wrapper
+          div.calc-display
+            div.calc-leftside
+              div.calc__switch
+                h3.calc__grad Grad
+                input(type="checkbox" id="unchecked").cbx.hidden
+                label(for="unchecked").lbl
+                h3.calc__rad Rad
+            div.calc-rightside
+              input(type="text").calc__operation
+              input(type="text").calc__numeric
+          div.calc-buttons
+            div.calc-numericbuttonwrapper
+              button(type="button").calc__numbtn 1
+              button(type="button").calc__numbtn 2
+              button(type="button").calc__numbtn 3
+              button(type="button").calc__numbtn 4
+              button(type="button").calc__numbtn 5
+              button(type="button").calc__numbtn 6
+              button(type="button").calc__numbtn 7
+              button(type="button").calc__numbtn 8
+              button(type="button").calc__numbtn 9
+              button(type="button").calc__numbtn .
+              button(type="button").calc__numbtn 0
+              button(type="button").calc__numbtn 00
+            div.calc-operationbuttonwrapper
+              button(type="button").calc__operbtn +
+
+  each js in files.JS
+    script(src=`${js}`)
