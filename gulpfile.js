@@ -14,6 +14,7 @@ const gulp         = require("gulp"),
       useref       = require("gulp-useref"),
       webp         = require("gulp-webp"),
       pngquant     = require("imagemin-pngquant"),
+      jquery       = require("jQuery"),
       dir          = {
         src         : "src",
         development : "build/development",

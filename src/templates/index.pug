@@ -28,33 +28,34 @@ body
                 label(for="unchecked").lbl
                 h4.calc__rad Rad
             div.calc-rightside
-              input(type="text").calc__operation
-              input(type="text").calc__numeric
+              input(type="text" id="operation" maxlength="12").calc__operation
+              input(type="text" id="entrypoint" maxlength="12").calc__numeric
           div.calc-buttons
             div.calc-numericbuttonwrapper
-              input(type="button" value="1").calc__numbtn
-              input(type="button" value="2").calc__numbtn
-              input(type="button" value="3").calc__numbtn
-              input(type="button" value="4").calc__numbtn
-              input(type="button" value="5").calc__numbtn
-              input(type="button" value="6").calc__numbtn
-              input(type="button" value="7").calc__numbtn
-              input(type="button" value="8").calc__numbtn
-              input(type="button" value="9").calc__numbtn
-              input(type="button" value=".").calc__numbtn
-              input(type="button" value="0").calc__numbtn
-              input(type="button" value="00").calc__numbtn
+              input(type="button" value="1" id="one").calc__numbtn
+              input(type="button" value="2" id="two").calc__numbtn
+              input(type="button" value="3" id="three").calc__numbtn
+              input(type="button" value="4" id="four").calc__numbtn
+              input(type="button" value="5" id="five").calc__numbtn
+              input(type="button" value="6" id="six").calc__numbtn
+              input(type="button" value="7" id="seven").calc__numbtn
+              input(type="button" value="8" id="eight").calc__numbtn
+              input(type="button" value="9" id="nine").calc__numbtn
+              input(type="button" value="." id="point").calc__numbtn
+              input(type="button" value="0" id="zero").calc__numbtn
+              input(type="button" value="00" id="d_zero").calc__numbtn
             div.calc-operationbuttonwrapper
-              input(type="button" value="+").calc__operbtn
-              input(type="button" value="-").calc__operbtn
-              input(type="button" value="x").calc__operbtn
-              input(type="button" value="/").calc__operbtn
-              input(type="button" value="sin(x)").calc__operbtn
-              input(type="button" value="cos(x)").calc__operbtn
-              input(type="button" value="tan(x)").calc__operbtn
-              input(type="button" value="e^x").calc__operbtn
-              input(type="button" value="x^2").calc__operbtn
-              input(type="button" value="=").calc__operbtn
+              input(type="button" value="+" id="plus").calc__operbtn
+              input(type="button" value="-" id="minus").calc__operbtn
+              input(type="button" value="x" id="times").calc__operbtn
+              input(type="button" value="/" id="divide").calc__operbtn
+              input(type="button" value="sin" id="sine").calc__operbtn
+              input(type="button" value="cos" id="cosine").calc__operbtn
+              input(type="button" value="tan" id="tangent").calc__operbtn
+              input(type="button" value="e^x" id="exponential").calc__operbtn
+              input(type="button" value="sqrt" id="root").calc__operbtn
+              input(type="button" value="=" id="equals").calc__operbtn
+              input(type="button" value="C" id="c").calc__operbtn
 
   each js in files.JS
     script(src=`${js}`)
