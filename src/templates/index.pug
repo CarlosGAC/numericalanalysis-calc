@@ -18,7 +18,9 @@ body
         div.intro-title
           h1.intro__h1 Numerical Analysis Calculator
         div.intro-info
-          h3.intro__h3 Author: Carlos Alberto Garcia de Alba Chavez M10 ISC
+          h3.intro__h3 Author: Carlos Alberto Garcia de Alba Chavez
+          h3.intro__h3 Author 2: Oscar Eduardo Navarrete Castrejon
+          h3.intro__h3 M10 Metodos Numericos ISC
         div.calc-wrapper
           div.calc-display
             div.calc-leftside
@@ -56,6 +58,12 @@ body
               input(type="button" value="sqrt" id="root").calc__operbtn
               input(type="button" value="=" id="equals").calc__operbtn
               input(type="button" value="C" id="c").calc__operbtn
+              input(type="button" value="ln" id="ln").calc__operbtn
+        div.instructions-wrapper
+          p.instructions-paragraph Para las funciones seno, coseno y tangente, seleccionar el numero al que se le calculara la funcion, presionar el boton de la funcion y despues ingresar el numero de cifras significativas
+        div.table-wrapper
+          h3.intro__h3 Tabla de iteraciones
+          table(width="100%").table
 
   each js in files.JS
     script(src=`${js}`)
