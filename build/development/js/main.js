@@ -100,13 +100,17 @@ $('#equals').click(function () {
   } else if (operator == "sqrt") {
     entry.val(sqrt_bab(firstoperand, secondoperand));
   } else if (operator == "e^x") {
-    entry.val(pow(firstoperand, secondoperand));
+    entry.val(exponential(firstoperand, secondoperand, 1));
   } else if (operator == "sin") {
     entry.val(sine(firstoperand, secondoperand, 1).toFixed(secondoperand));
   } else if (operator == "cos") {
     entry.val(cosine(firstoperand, secondoperand, 1).toFixed(secondoperand));
   } else if (operator == "tan") {
-    entry.val(tangent(firstoperand, secondoperand, 1).toFixed(secondoperand));
+    if (tangent(firstoperand, secondoperand, 1) != null) {
+      entry.val(tangent(firstoperand, secondoperand, 1).toFixed(secondoperand));
+    } else {
+      entry.val("NaN");
+    }
   } else {
     entry.val(firstoperand);
   }
@@ -309,5 +313,40 @@ function cosine(num, error, printable) {
 
 //Funcion tangente
 function tangent(num, error) {
+  if (num % 90 == 0) {
+    if (num / 90 % 2 != 0) {
+      return null;
+    }
+  }
   return sine(num, error, 1) / cosine(num, error, 1);
+}
+
+//Funcion exponencial de x
+function exponential(num, error, printable) {
+  var es = parseFloat(error_s(error));
+  var firstvalue = parseFloat(1);
+  var secondvalue = parseFloat(0);
+  var i = parseInt(1);
+  var ea = parseFloat(100);
+  var operation = parseFloat(0);
+  var printednum = 0;
+  //Si se requiere imprimir la tabla de iteraciones, imprime titulos
+  if (printable == 1) {
+    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><th class='table-title wow bounceInUp' data-wow-delay='0.6s'>t</th><th class='table-title wow bounceInUp' data-wow-delay='0.7s'>cos(x)</th><th class='table-title wow bounceInUp' data-wow-delay='0.8s'>ea</th></tr>");
+    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + parseFloat(num).toFixed(error) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
+  }
+  while (ea >= es) {
+    operation = pow(num, i) / factorial(i);
+    secondvalue = firstvalue + operation;
+    ea = abs((secondvalue - firstvalue) / secondvalue * 100);
+    firstvalue = secondvalue;
+    i++;
+    console.log("Second value ex: " + secondvalue);
+    printednum = parseFloat(secondvalue).toFixed(error);
+    //Si se requiere imprimir la tabla de iteraciones, imprime iteraciones
+    if (printable == 1) {
+      $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + printednum + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>" + ea + "</td></tr>");
+    }
+  }
+  return secondvalue;
 }
