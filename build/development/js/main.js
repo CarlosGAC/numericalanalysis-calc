@@ -16,22 +16,10 @@ var operator = "";
 //Declaracion de la constante pi
 var pi = 3.141592653;
 
-//Boton clear
-$("#c").click(function () {
-  //Limpieza de la calculadora
-  entry.val("");
-  operation.val("");
-  contpoint = 0;
-  //Limpieza de la tabla
-  $('.table').empty();
-  //Animacion
-  $(this).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-    $(this).removeClass("animated pulse");
-  });
-});
-
 //Funcion para los botones numericos y de punto decimal
 function buttons(idbutton) {
+  var _this = this;
+
   var value = idbutton.val();
   $(idbutton).click(function () {
     console.log("Puntos: " + contpoint);
@@ -47,22 +35,26 @@ function buttons(idbutton) {
     } else {
       entry.val(entry.val() + value);
     }
-    $(this).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-      $(this).removeClass("animated pulse");
+    $(_this).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+      $(_this).removeClass("animated pulse");
     });
   });
 }
 
 //Funcion para la operacion de los botones de operador
 function operations(idbutton) {
+  var _this2 = this;
+
   $(idbutton).click(function () {
     contpoint = 0;
-
-    if ($(this).attr('id') == 'minus') {
+    console.log($(idbutton).attr('id'));
+    if ($(idbutton).attr('id') == 'minus') {
       //Manejo del boton menos para diferenciar entre negativo y menos
       if (entry.val() == "") {
         entry.val("-");
+        console.log("Aqui andamos brother");
       } else {
+        console.log("Aqui no deberiamos de andar brother");
         firstoperand = entry.val();
         entry.val("");
         operation.val(firstoperand + idbutton.val());
@@ -76,11 +68,39 @@ function operations(idbutton) {
       operator = idbutton.val();
     }
     //Animacion
-    $(this).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-      $(this).removeClass("animated pulse");
+    $(_this2).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+      $(_this2).removeClass("animated pulse");
     });
   });
 }
+
+//Se anida la funcion buttons a los botones del area izquierda
+buttons($('#one'));
+buttons($('#two'));
+buttons($('#three'));
+buttons($('#four'));
+buttons($('#five'));
+buttons($('#six'));
+buttons($('#seven'));
+buttons($('#eight'));
+buttons($('#nine'));
+buttons($('#zero'));
+buttons($('#d_zero'));
+buttons($('#point'));
+
+//Boton clear
+$("#c").click(function () {
+  //Limpieza de la calculadora
+  entry.val("");
+  operation.val("");
+  contpoint = 0;
+  //Limpieza de la tabla
+  $('.table').empty();
+  //Animacion
+  $(undefined).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+    $(undefined).removeClass("animated pulse");
+  });
+});
 
 //Funcion especial de click para el boton de igual
 $('#equals').click(function () {
@@ -98,16 +118,26 @@ $('#equals').click(function () {
   } else if (operator == "/") {
     entry.val(divide(firstoperand, secondoperand));
   } else if (operator == "sqrt") {
-    entry.val(sqrt_bab(firstoperand, secondoperand));
+    if (sqrt_bab(firstoperand, secondoperand) != null) {
+      entry.val(sqrt_bab(firstoperand, secondoperand).toFixed(abs(secondoperand)));
+    } else {
+      entry.val("NaN");
+    }
   } else if (operator == "e^x") {
-    entry.val(exponential(firstoperand, secondoperand, 1));
+    entry.val(exponential(firstoperand, secondoperand, 1).toFixed(abs(secondoperand)));
   } else if (operator == "sin") {
-    entry.val(sine(firstoperand, secondoperand, 1).toFixed(secondoperand));
+    entry.val(sine(firstoperand, secondoperand, 1).toFixed(abs(secondoperand)));
   } else if (operator == "cos") {
-    entry.val(cosine(firstoperand, secondoperand, 1).toFixed(secondoperand));
+    entry.val(cosine(firstoperand, secondoperand, 1).toFixed(abs(secondoperand)));
   } else if (operator == "tan") {
     if (tangent(firstoperand, secondoperand, 1) != null) {
-      entry.val(tangent(firstoperand, secondoperand, 1).toFixed(secondoperand));
+      entry.val(tangent(firstoperand, secondoperand, 1).toFixed(abs(secondoperand)));
+    } else {
+      entry.val("NaN");
+    }
+  } else if (operator == "ln") {
+    if (logarithm(firstoperand, secondoperand, 1) != null) {
+      entry.val(logarithm(firstoperand, secondoperand).toFixed(abs(secondoperand)));
     } else {
       entry.val("NaN");
     }
@@ -115,8 +145,8 @@ $('#equals').click(function () {
     entry.val(firstoperand);
   }
   //Animacion
-  $(this).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-    $(this).removeClass("animated pulse");
+  $(undefined).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+    $(undefined).removeClass("animated pulse");
   });
 
   //Si hay un error aritmetico, marcar en la pantalla de la calculadora
@@ -134,21 +164,7 @@ $('#equals').click(function () {
   operation.val("");
 });
 
-//Se anida la funcion buttons a los botones del area izquierda
-buttons($('#one'));
-buttons($('#two'));
-buttons($('#three'));
-buttons($('#four'));
-buttons($('#five'));
-buttons($('#six'));
-buttons($('#seven'));
-buttons($('#eight'));
-buttons($('#nine'));
-buttons($('#zero'));
-buttons($('#d_zero'));
-buttons($('#point'));
-
-//Se anida la funcion opeartions a los botones del area derecha
+//Se anida la funcion operations a los botones del area derecha
 operations($('#plus'));
 operations($('#minus'));
 operations($('#times'));
@@ -158,6 +174,7 @@ operations($('#exponential'));
 operations($('#sine'));
 operations($('#cosine'));
 operations($('#tangent'));
+operations($('#ln'));
 
 //Funcion suma
 function add(num1, num2) {
@@ -209,19 +226,6 @@ function factorial(num) {
   return fact;
 }
 
-//Funcion raiz cuadrada
-function sqrt_bab(num, error) {
-
-  var b = x;
-  var h = 0;
-
-  while (parseFloat(b) != parseFloat(h)) {
-    b = (parseFloat(h) + parseFloat(b)) / 2;
-    h = parseFloat(x) / parseFloat(b);
-  }
-  return b;
-}
-
 //Funcion para calcular error meta
 function error_s(num) {
   return 0.5 * pow(10, 2 - num);
@@ -243,13 +247,17 @@ function abs(num) {
 
 //Funcion seno
 function sine(num, error, printable) {
+  var err = abs(error);
 
+  if (num > 360) {
+    num = num % 360;
+  }
   //Conversion a radianes si es necesaria
   if (!checkunits()) {
     num = parseFloat(num * pi / 180);
   }
 
-  var es = parseFloat(error_s(error));
+  var es = parseFloat(error_s(err));
   var firstvalue = parseFloat(num);
   var secondvalue = parseFloat(0);
   var i = parseInt(1);
@@ -259,7 +267,7 @@ function sine(num, error, printable) {
   //Si se requiere imprimir la tabla de iteraciones, imprime titulos
   if (printable == 1) {
     $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><th class='table-title wow bounceInUp' data-wow-delay='0.6s'>t</th><th class='table-title wow bounceInUp' data-wow-delay='0.7s'>sin(x)</th><th class='table-title wow bounceInUp' data-wow-delay='0.8s'>ea</th></tr>");
-    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + num.toFixed(error) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
+    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + num.toFixed(err) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
   }
   while (ea >= es) {
     operation = pow(-1, i) * pow(num, 2 * i + 1) / factorial(2 * i + 1);
@@ -267,7 +275,7 @@ function sine(num, error, printable) {
     ea = abs((secondvalue - firstvalue) / secondvalue * 100);
     firstvalue = secondvalue;
     i++;
-    printednum = secondvalue.toFixed(error);
+    printednum = secondvalue.toFixed(err);
     //Si se requiere imprimir la tabla de iteraciones, imprime las iteraciones
     if (printable == 1) {
       $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + printednum + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>" + ea + "</td></tr>");
@@ -278,13 +286,18 @@ function sine(num, error, printable) {
 
 //Funcion coseno
 function cosine(num, error, printable) {
+  var err = abs(error);
+
+  if (num > 360 || num < -360) {
+    num = num % 360;
+  }
 
   //Conversion a radianes si es necesaria
   if (!checkunits()) {
     num = parseFloat(num * pi / 180);
   }
 
-  var es = parseFloat(error_s(error));
+  var es = parseFloat(error_s(err));
   var firstvalue = parseFloat(1);
   var secondvalue = parseFloat(0);
   var i = parseInt(1);
@@ -294,7 +307,7 @@ function cosine(num, error, printable) {
   //Si se requiere imprimir la tabla de iteraciones, imprime titulos
   if (printable == 1) {
     $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><th class='table-title wow bounceInUp' data-wow-delay='0.6s'>t</th><th class='table-title wow bounceInUp' data-wow-delay='0.7s'>cos(x)</th><th class='table-title wow bounceInUp' data-wow-delay='0.8s'>ea</th></tr>");
-    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + num.toFixed(error) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
+    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + num.toFixed(err) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
   }
   while (ea >= es) {
     operation = pow(-1, i) * pow(num, 2 * i) / factorial(2 * i);
@@ -302,7 +315,7 @@ function cosine(num, error, printable) {
     ea = abs((secondvalue - firstvalue) / secondvalue * 100);
     firstvalue = secondvalue;
     i++;
-    printednum = secondvalue.toFixed(error);
+    printednum = secondvalue.toFixed(err);
     //Si se requiere imprimir la tabla de iteraciones, imprime iteraciones
     if (printable == 1) {
       $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + printednum + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>" + ea + "</td></tr>");
@@ -313,17 +326,25 @@ function cosine(num, error, printable) {
 
 //Funcion tangente
 function tangent(num, error) {
+
+  var err = abs(error);
+
+  if (num > 360 || num < -360) {
+    num = num % 360;
+  }
+
   if (num % 90 == 0) {
     if (num / 90 % 2 != 0) {
       return null;
     }
   }
-  return sine(num, error, 1) / cosine(num, error, 1);
+  return sine(num, err, 1) / cosine(num, err, 1);
 }
 
 //Funcion exponencial de x
 function exponential(num, error, printable) {
-  var es = parseFloat(error_s(error));
+  var err = abs(error);
+  var es = parseFloat(error_s(err));
   var firstvalue = parseFloat(1);
   var secondvalue = parseFloat(0);
   var i = parseInt(1);
@@ -333,7 +354,7 @@ function exponential(num, error, printable) {
   //Si se requiere imprimir la tabla de iteraciones, imprime titulos
   if (printable == 1) {
     $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><th class='table-title wow bounceInUp' data-wow-delay='0.6s'>t</th><th class='table-title wow bounceInUp' data-wow-delay='0.7s'>cos(x)</th><th class='table-title wow bounceInUp' data-wow-delay='0.8s'>ea</th></tr>");
-    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + parseFloat(num).toFixed(error) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
+    $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + 1 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + parseFloat(num).toFixed(err) + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>-</td></tr>");
   }
   while (ea >= es) {
     operation = pow(num, i) / factorial(i);
@@ -342,11 +363,83 @@ function exponential(num, error, printable) {
     firstvalue = secondvalue;
     i++;
     console.log("Second value ex: " + secondvalue);
-    printednum = parseFloat(secondvalue).toFixed(error);
+    printednum = parseFloat(secondvalue).toFixed(err);
     //Si se requiere imprimir la tabla de iteraciones, imprime iteraciones
     if (printable == 1) {
       $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.6s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.7s'>" + printednum + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.8s'>" + ea + "</td></tr>");
     }
   }
   return secondvalue;
+}
+
+//Funcion para calcular el logaritmo de un numero
+function logarithm(num, error) {
+  var result = 0;
+  var y = 0;
+  var a = 0;
+  var b = 0;
+  var c = 0;
+  var f = 0;
+  var err = abs(error);
+  var es = parseFloat(error_s(err));
+  var ea = 100;
+  var i = 0;
+  var firstvalue = 100;
+  var secondvalue = 1;
+  var printednum = 0;
+
+  if (num > 0) {
+    $('.table').append("<tr class='table-row'><th class='table-title'>t</th><th class='table-title'>ln(x)</th><th class='table-title'>ea</th></tr>");
+    while (ea >= es) {
+      f = 2 * i + parseFloat(1);
+      a = 1 / f;
+      b = (num - 1) / (parseFloat(num) + parseFloat(1));
+      c = pow(b, 2 * i + 1);
+      y = a * c;
+      result = parseFloat(result) + parseFloat(y);
+      ea = abs((secondvalue - firstvalue) / secondvalue * 100);
+      printednum = result.toFixed(err);
+      if (i == 1) $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + printednum * 2 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + "----" + "</td></tr>");else {
+        $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + i + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + printednum * 2 + "</td><td class='table-column wow bounceInUp' data-wow-delay='0.5s'>" + ea + "</td></tr>");
+      }
+      firstvalue = secondvalue;
+      secondvalue = result;
+      i++;
+      console.log(i);
+      console.log("ea: " + ea);
+    }
+    result = result * 2;
+    return result;
+  } else {
+    return null;
+  }
+}
+
+//Funcion raiz cuadrada
+function sqrt_bab(x, error) {
+  var err = abs(error);
+  var b = x;
+  var h = 0;
+  var es = parseFloat(error_s(err));
+  var i = 1;
+  var ea = 1000;
+  var operation = 0;
+  var printable = 1;
+  var printednum = 0;
+
+  $('.table').append("<tr class='table-row wow bounceInUp' data-wow-delay='0.5s'><th class='table-title wow bounceInUp' data-wow-delay='0.5s'>t</th><th class='table-title wow bounceInUp' data-wow-delay='0.5s'>sqrt(x)</th><th class='table-title wow bounceInUp' data-wow-delay='0.5s'>ea</th></tr>");
+
+  if (x < 0) printednum = null;else {
+    while (ea >= es) {
+      ea = (b - h) / h * 100;
+      b = (parseFloat(h) + parseFloat(b)) / 2;
+      h = x / b;
+      printednum = b.toFixed(err);
+      if (i == 1) $('.table').append("<tr class='table-row'><td class='table-column'>" + i + "</td><td class='table-column'>" + printednum + "</td><td class='table-column'>" + "----" + "</td></tr>");else {
+        $('.table').append("<tr class='table-row'><td class='table-column'>" + i + "</td><td class='table-column'>" + printednum + "</td><td class='table-column'>" + ea + "</td></tr>");
+      }
+      i++;
+    }
+  }
+  return b;
 }
