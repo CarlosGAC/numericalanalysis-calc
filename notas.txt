@@ -1,6 +1,0 @@
-HSL = Tono(hue),Saturacion,Luminosidad(light);
-
-1.5 de interlineado para parrafos
-
-si la raiz esta nula vale dick en buscar
-javadu

@@ -144,6 +144,7 @@ $('#equals').click(function () {
   } else {
     entry.val(firstoperand);
   }
+  console.log(operator);
   //Animacion
   $(undefined).addClass("animated pulse").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
     $(undefined).removeClass("animated pulse");
