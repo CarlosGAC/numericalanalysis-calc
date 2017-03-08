@@ -381,11 +381,7 @@ function exponential(num, error, printable) {
 
 
 //Funcion para calcular el logaritmo de un numero
-<<<<<<< HEAD
-function logarithm(num, error) {
-=======
 function logarithm(num, error, printable){
->>>>>>> origin/master
   var result=0;
   var y=0;
   var a=0;
